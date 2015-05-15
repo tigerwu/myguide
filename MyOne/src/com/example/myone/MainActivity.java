@@ -137,6 +137,7 @@ public class MainActivity extends Activity {
         } else {
         	tv_long.setText("经度:无法获取");
             tv_lat.setText("纬度:无法获取");
+                 
         }
 
     }
