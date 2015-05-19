@@ -19,11 +19,24 @@
         android:layout_height="wrap_content"
         android:text="@string/str_tx_view" />
         
+        <Spinner  
+        android:id="@+id/spinner_viewspots"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
+        android:entries="@array/strarr_spinner_viewspots"  
+        android:prompt="@string/str_tx_view"/>  
+        
         <TextView 
         android:id="@+id/tv_long"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/str_tx_long" />
+        
+        <EditText
+            android:id="@+id/ed_long"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_ed_long" />
         
         <TextView 
         android:id="@+id/tv_lat"
@@ -31,13 +44,26 @@
         android:layout_height="wrap_content"
         android:text="@string/str_tx_lat" />
         
+        <EditText
+            android:id="@+id/ed_lat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_ed_lat" />
+        
+        <Button
+	        android:id="@+id/btn_locat"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/str_btn_locat" 
+	        android:onClick="Locate_onClick_Event" />
+        
         <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
     	android:layout_height="wrap_content">
     	
             <EditText
-            android:id="@+id/txt_view_name"
+            android:id="@+id/ed_viewspot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,24 +74,15 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="3"
-	        android:text="@string/str_btn_save_view" />
-        </LinearLayout>
+	        android:text="@string/str_btn_save_view" 
+	        android:onClick="SaveViewLocat_onClick_Event"/>
+        </LinearLayout>  
         
-        <Button
-        android:id="@+id/btn_locat"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/str_btn_locat" />
+        <ListView 
+            android:id="@+id/lv_vlfile"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content" />
         
-        <Button android:id="@+id/btn_auto"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/str_btn_auto" />
-        
-        <Button android:id="@+id/btn_manual"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/str_btn_manual" />
         
     </LinearLayout>
     

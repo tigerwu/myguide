@@ -12,7 +12,34 @@
 	<string name="str_btn_manual">手动导览</string>
 	<string name="str_btn_save_view">保存</string>
 	<string name="str_view_input">请输入景点名</string>
+	<string name="str_ed_long">请输入经度</string>
+	<string name="str_ed_lat">请输入纬度</string>
 	
 	<string name="str_toast_locat">正在获取经纬度</string>
 	<string name="str_toast_saveview">正在保存景点信息</string>
+	<string name="str_toast_saveview_success">保存景点信息成功</string>
+	<string name="str_toast_saveview_fail">保存景点信息失败</string>
+	
+	<string-array name="strarr_spinner_viewspots"> 
+		<item>大猩猩馆</item> 
+		<item>红猩猩馆</item> 
+		<item>黑猩猩馆</item> 
+		<item>黑叶猴</item> 
+		<item>灵长动物二区</item> 
+		<item>灵长动物三区</item> 
+		<item>大象馆</item> 
+		<item>红颈袋鼠</item> 
+		<item>四川羚牛</item> 
+		<item>旋角羚羊</item> 
+		<item>斑马</item> 
+		<item>弯角剑羚</item> 
+		<item>东北梅花鹿</item> 
+		<item>东北马鹿</item> 
+		<item>马来熊</item> 
+		<item>熊猫岭</item> 
+		<item>斑海豹馆</item> 
+		<item>河马馆</item> 
+		<item>天鹅鸳鸯区</item> 
+		<item>火烈鸟区</item> 
+	</string-array>
 </resources>

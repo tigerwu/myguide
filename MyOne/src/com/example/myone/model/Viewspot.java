@@ -7,6 +7,7 @@ public class Viewspot {
 	private Long ID;
 	private String Name;
 	private String Descript;
+	private String DescriptSound;
 	private Long ParkID;
 	private ArrayList<Location> Locations;
 	
@@ -30,6 +31,12 @@ public class Viewspot {
 		Descript = descript;
 	}
 	
+	public String getDescriptSound() {
+		return DescriptSound;
+	}
+	public void setDescriptSound(String descriptSound) {
+		DescriptSound = descriptSound;
+	}
 	public Long getParkID() {
 		return ParkID;
 	}
