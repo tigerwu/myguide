@@ -14,21 +14,27 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +43,32 @@ public class MainActivity extends Activity {
 	private static final String ACTIVITY_TAG = "MainActivity";
 	private ViewspotDBManager dbmgr;
 	private ViewspotService viewspotSrv;
+	
+	private Handler mHandler = new Handler();
+	private ScrollView mScrollView;  
+	
+	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {  
+        case R.id.action_settings:
+        	DisplayToast("你选择了初始化");
+        	break;
+        case R.id.action_autoguidid:
+        	DisplayToast("你选择了自动导航");
+        	Intent intent = new Intent();
+        	intent.setClass(MainActivity.this, ViewspotListActivity.class);
+        	MainActivity.this.startActivity(intent);
+        	//MainActivity.this.finish();
+        	break;
+        case R.id.action_manualguidid:
+        	DisplayToast("你选择了手动导航");
+        	break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +80,7 @@ public class MainActivity extends Activity {
 		// initialService();
 
 		try {
-			ShowViewspotLocationFromFile();
+			ShowViewspotLocation();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,6 +94,7 @@ public class MainActivity extends Activity {
 		spinner_viewspots
 				.setOnItemSelectedListener(new ViewspotsOnItemSelectedListener());
 
+		mScrollView = (ScrollView) findViewById(R.id.scroll);  
 		EditText ed_viewspot = (EditText) this.findViewById(R.id.ed_viewspot);
 		ed_viewspot.setOnClickListener(new OnClickListener() {
 
@@ -69,6 +102,15 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				((EditText) v).setText("");
+				
+				mHandler.postDelayed(new Runnable() {  
+		              
+		            @Override  
+		            public void run() {  
+		                //将ScrollView滚动到底  
+		                mScrollView.fullScroll(View.FOCUS_DOWN);  
+		            }  
+		        }, 100);  
 			}
 		});
 
@@ -121,7 +163,7 @@ public class MainActivity extends Activity {
 			SaveViewspotLocationToFile(vlstr);
 			DisplayToast(getResources().getText(
 					R.string.str_toast_saveview_success).toString());
-			ShowViewspotLocationFromFile();
+			ShowViewspotLocation();
 		} catch (Exception e) {
 			DisplayToast(getResources().getText(
 					R.string.str_toast_saveview_fail).toString());
@@ -136,9 +178,11 @@ public class MainActivity extends Activity {
 		fos.write(vlstring.getBytes());
 		fos.close();
 	}
-
-	private void ShowViewspotLocationFromFile() throws FileNotFoundException,
-			IOException {
+	
+	private String[] getViewspotLocationFromFile()  
+			throws FileNotFoundException, IOException {
+		String[] vslarray = null;
+		
 		FileInputStream fis = openFileInput("ViewspotLocation.txt");
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
@@ -148,25 +192,31 @@ public class MainActivity extends Activity {
 			outStream.write(buffer, 0, len);
 		}
 		// 得到存放在内存中的所有的数据
+		outStream.close();
+		fis.close();
+		
 		byte[] data = outStream.toByteArray();
 
 		String vslstr = new String(data);
 
 		if (vslstr != null && vslstr.trim().length() > 0) {
-			String[] vslarray = vslstr.split("\\r\\n");
-			
+			vslarray = vslstr.split("\\r\\n");
+		}
+		return vslarray;		
+	}
+
+	private void ShowViewspotLocation() 
+			throws FileNotFoundException, IOException {
+		String[] vslarray = getViewspotLocationFromFile();
+		if (vslarray != null) {				
 			ListView lv_vl = (ListView) this.findViewById(R.id.lv_vlfile);
-			lv_vl.setAdapter(new ArrayAdapter<String>(
-					this,
-					android.R.layout.simple_expandable_list_item_1,
-					vslarray));
+			lv_vl.setAdapter(new ViewspotLocationAdapter(vslarray));
 					
 			//TextView showvl = (TextView) this.findViewById(R.id.tv_vlfile);
 			//showvl.setText(vslstr);
 		}
 
-		outStream.close();
-		fis.close();
+		
 	}
 
 	private class ViewspotsOnItemSelectedListener implements
@@ -190,6 +240,52 @@ public class MainActivity extends Activity {
 			DisplayToast("SpinnerViewspot unselected");
 		}
 
+	}
+	
+	private class ViewspotLocationAdapter extends BaseAdapter {
+		String[] vslarray = null;
+		
+		public ViewspotLocationAdapter(String[] vslarray2) {
+			// TODO Auto-generated constructor stub
+			vslarray = vslarray2;
+		}
+		
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			if (vslarray == null) {
+				return 0;
+			}
+			else {
+				return vslarray.length;
+			}
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return arg0;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			TextView mTextView = null;
+			if (vslarray != null) {
+				mTextView = new TextView(getApplicationContext());
+	            mTextView.setText(vslarray[position]);
+	            mTextView.setTextSize(12);
+	            mTextView.setTextColor(Color.BLUE);
+			}            
+            return mTextView;
+		}
+		
 	}
 
 	private void initialService() {

@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -81,11 +82,11 @@
         <ListView 
             android:id="@+id/lv_vlfile"
             android:layout_width="match_parent"
-        	android:layout_height="wrap_content" />
+        	android:layout_height="400px" />
         
         
     </LinearLayout>
     
     
 
-</RelativeLayout>
+</ScrollView>
