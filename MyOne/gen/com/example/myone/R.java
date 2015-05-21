@@ -9,7 +9,7 @@ package com.example.myone;
 
 public final class R {
     public static final class array {
-        public static final int strarr_spinner_viewspots=0x7f060000;
+        public static final int strarr_spinner_viewspots=0x7f070000;
     }
     public static final class attr {
     }
@@ -20,56 +20,78 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_autoguidid=0x7f09000d;
-        public static final int action_manualguidid=0x7f09000e;
-        public static final int action_settings=0x7f09000c;
-        public static final int btn_locat=0x7f090007;
-        public static final int btn_save_view=0x7f090009;
-        public static final int ed_lat=0x7f090006;
-        public static final int ed_long=0x7f090004;
-        public static final int ed_viewspot=0x7f090008;
-        public static final int lv_viewspots=0x7f09000b;
-        public static final int lv_vlfile=0x7f09000a;
-        public static final int scroll=0x7f090000;
-        public static final int spinner_viewspots=0x7f090002;
-        public static final int tv_lat=0x7f090005;
-        public static final int tv_long=0x7f090003;
-        public static final int tv_view_name=0x7f090001;
+        public static final int action_autoguidid=0x7f0a000d;
+        public static final int action_manualguidid=0x7f0a000e;
+        public static final int action_settings=0x7f0a000c;
+        public static final int btn_locat=0x7f0a0007;
+        public static final int btn_save_view=0x7f0a0009;
+        public static final int ed_lat=0x7f0a0006;
+        public static final int ed_long=0x7f0a0004;
+        public static final int ed_viewspot=0x7f0a0008;
+        public static final int lv_viewspots=0x7f0a000b;
+        public static final int lv_vlfile=0x7f0a000a;
+        public static final int scroll=0x7f0a0000;
+        public static final int spinner_viewspots=0x7f0a0002;
+        public static final int tv_lat=0x7f0a0005;
+        public static final int tv_long=0x7f0a0003;
+        public static final int tv_view_name=0x7f0a0001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_viewspot_list=0x7f030001;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
-        public static final int viewspot_list=0x7f080001;
+        public static final int main=0x7f090000;
+        public static final int viewspot_list=0x7f090001;
+    }
+    public static final class raw {
+        public static final int zoo1=0x7f040000;
+        public static final int zoo10=0x7f040001;
+        public static final int zoo11=0x7f040002;
+        public static final int zoo12=0x7f040003;
+        public static final int zoo13=0x7f040004;
+        public static final int zoo14=0x7f040005;
+        public static final int zoo15=0x7f040006;
+        public static final int zoo16=0x7f040007;
+        public static final int zoo17=0x7f040008;
+        public static final int zoo18=0x7f040009;
+        public static final int zoo19=0x7f04000a;
+        public static final int zoo2=0x7f04000b;
+        public static final int zoo20=0x7f04000c;
+        public static final int zoo3=0x7f04000d;
+        public static final int zoo4=0x7f04000e;
+        public static final int zoo5=0x7f04000f;
+        public static final int zoo6=0x7f040010;
+        public static final int zoo7=0x7f040011;
+        public static final int zoo8=0x7f040012;
+        public static final int zoo9=0x7f040013;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050011;
-        public static final int str_btn_auto=0x7f050006;
-        public static final int str_btn_locat=0x7f050005;
-        public static final int str_btn_manual=0x7f050007;
-        public static final int str_btn_save_view=0x7f050008;
-        public static final int str_ed_lat=0x7f05000b;
-        public static final int str_ed_long=0x7f05000a;
-        public static final int str_toast_locat=0x7f05000c;
-        public static final int str_toast_saveview=0x7f05000d;
-        public static final int str_toast_saveview_fail=0x7f05000f;
-        public static final int str_toast_saveview_success=0x7f05000e;
-        public static final int str_tx_lat=0x7f050004;
-        public static final int str_tx_long=0x7f050003;
-        public static final int str_tx_view=0x7f050002;
-        public static final int str_view_input=0x7f050009;
-        public static final int title_activity_viewspot_list=0x7f050010;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int hello_world=0x7f060011;
+        public static final int str_btn_auto=0x7f060006;
+        public static final int str_btn_locat=0x7f060005;
+        public static final int str_btn_manual=0x7f060007;
+        public static final int str_btn_save_view=0x7f060008;
+        public static final int str_ed_lat=0x7f06000b;
+        public static final int str_ed_long=0x7f06000a;
+        public static final int str_toast_locat=0x7f06000c;
+        public static final int str_toast_saveview=0x7f06000d;
+        public static final int str_toast_saveview_fail=0x7f06000f;
+        public static final int str_toast_saveview_success=0x7f06000e;
+        public static final int str_tx_lat=0x7f060004;
+        public static final int str_tx_long=0x7f060003;
+        public static final int str_tx_view=0x7f060002;
+        public static final int str_view_input=0x7f060009;
+        public static final int title_activity_viewspot_list=0x7f060010;
     }
     public static final class style {
         /** 
@@ -93,10 +115,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
 }

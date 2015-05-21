@@ -13,6 +13,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -41,6 +42,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static final String ACTIVITY_TAG = "MainActivity";
+	private final String VSLFILENAME = "ViewspotLocation.txt";
 	private ViewspotDBManager dbmgr;
 	private ViewspotService viewspotSrv;
 	
@@ -52,19 +54,33 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		Intent intent = null;
 		switch (item.getItemId()) {  
         case R.id.action_settings:
         	DisplayToast("你选择了初始化");
+        	getApplicationContext().deleteFile(VSLFILENAME);
+        	try {
+				ShowViewspotLocation();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	break;
         case R.id.action_autoguidid:
         	DisplayToast("你选择了自动导航");
-        	Intent intent = new Intent();
+        	intent = new Intent();
         	intent.setClass(MainActivity.this, ViewspotListActivity.class);
         	MainActivity.this.startActivity(intent);
         	//MainActivity.this.finish();
         	break;
         case R.id.action_manualguidid:
         	DisplayToast("你选择了手动导航");
+        	intent = new Intent();
+        	intent.setClass(MainActivity.this, ViewspotListActivity.class);
+        	MainActivity.this.startActivity(intent);
         	break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -130,6 +146,10 @@ public class MainActivity extends Activity {
 		getLocation();
 	}
 
+	/**
+	 * 保存按钮事件
+	 * @param view
+	 */
 	public void SaveViewLocat_onClick_Event(View view) {
 		EditText ed_viewspot = (EditText) this.findViewById(R.id.ed_viewspot);
 		EditText ed_long = (EditText) this.findViewById(R.id.ed_long);
@@ -170,15 +190,27 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * 保存景点经纬度到文件
+	 * @param vlstring
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	private void SaveViewspotLocationToFile(String vlstring)
 			throws FileNotFoundException, IOException {
-		FileOutputStream fos = openFileOutput("ViewspotLocation.txt",
+		FileOutputStream fos = openFileOutput(VSLFILENAME,
 				Context.MODE_APPEND);
 		fos.write(vlstring.getBytes());
 		fos.close();
 	}
 	
+	/**
+	 * 从文件获取景点经纬度
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	private String[] getViewspotLocationFromFile()  
 			throws FileNotFoundException, IOException {
 		String[] vslarray = null;
@@ -204,16 +236,26 @@ public class MainActivity extends Activity {
 		}
 		return vslarray;		
 	}
-
+	
+	/**
+	 * 显示景点经纬度到列表
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	private void ShowViewspotLocation() 
 			throws FileNotFoundException, IOException {
+		ListView lv_vl = (ListView) this.findViewById(R.id.lv_vlfile);
+		
 		String[] vslarray = getViewspotLocationFromFile();
 		if (vslarray != null) {				
-			ListView lv_vl = (ListView) this.findViewById(R.id.lv_vlfile);
+			
 			lv_vl.setAdapter(new ViewspotLocationAdapter(vslarray));
 					
 			//TextView showvl = (TextView) this.findViewById(R.id.tv_vlfile);
 			//showvl.setText(vslstr);
+		}
+		else {
+			lv_vl.removeAllViews();
 		}
 
 		
@@ -388,6 +430,20 @@ public class MainActivity extends Activity {
 
 	private void DisplayToast(String msg) {
 		Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void TestMP3() {
+		MediaPlayer mp = MediaPlayer.create(this,R.raw.zoo1); 
+		try {
+			mp.prepare();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		mp.start();
 	}
 
 }
