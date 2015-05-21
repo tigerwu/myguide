@@ -255,7 +255,7 @@ public class MainActivity extends Activity {
 			//showvl.setText(vslstr);
 		}
 		else {
-			lv_vl.removeAllViews();
+			lv_vl.setAdapter(null);
 		}
 
 		
