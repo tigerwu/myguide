@@ -243,19 +243,25 @@ public class MainActivity extends Activity {
 	 * @throws IOException
 	 */
 	private void ShowViewspotLocation() 
-			throws FileNotFoundException, IOException {
+			throws IOException {
 		ListView lv_vl = (ListView) this.findViewById(R.id.lv_vlfile);
 		
-		String[] vslarray = getViewspotLocationFromFile();
-		if (vslarray != null) {				
-			
-			lv_vl.setAdapter(new ViewspotLocationAdapter(vslarray));
-					
-			//TextView showvl = (TextView) this.findViewById(R.id.tv_vlfile);
-			//showvl.setText(vslstr);
+		try {
+			String[] vslarray = getViewspotLocationFromFile();
+			if (vslarray != null) {				
+				
+				lv_vl.setAdapter(new ViewspotLocationAdapter(vslarray));
+						
+				//TextView showvl = (TextView) this.findViewById(R.id.tv_vlfile);
+				//showvl.setText(vslstr);
+			}
+			else {
+				lv_vl.setAdapter(null);
+			}
 		}
-		else {
+		catch (FileNotFoundException ex) {
 			lv_vl.setAdapter(null);
+			ex.printStackTrace();
 		}
 
 		
