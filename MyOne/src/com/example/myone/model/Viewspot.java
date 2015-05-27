@@ -9,7 +9,7 @@ public class Viewspot {
 	private String Descript;
 	private String DescriptSound;
 	private Long ParkID;
-	private ArrayList<Location> Locations;
+	private ArrayList<VLocation> Locations;
 	
 	
 	public Long getID() {
@@ -43,10 +43,10 @@ public class Viewspot {
 	public void setParkID(Long ParkID) {
 		ParkID = ParkID;
 	}
-	public ArrayList<Location> getLocations() {
+	public ArrayList<VLocation> getLocations() {
 		return Locations;
 	}
-	public void setLocations(ArrayList<Location> locations) {
+	public void setLocations(ArrayList<VLocation> locations) {
 		Locations = locations;
 	}
 

@@ -2,10 +2,18 @@ package com.example.myone;
 
 import java.io.IOException;
 
+import com.example.myone.model.VLocation;
+
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +25,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewspotListActivity extends Activity {
+	private static final String ACTIVITY_TAG = "ViewspotListActivity";
+	
 	private String[] vsarray = null;
 	private MediaPlayer[] mps = null;
+	private VLocation[] locas = null;
 	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		int i;
-		for(i = 0; i < 20 ; i++) {
+		for(i = 0; i < 8 ; i++) {
 			mps[i].release();
 		}
 		super.onDestroy();
@@ -34,6 +45,8 @@ public class ViewspotListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_viewspot_list);
+		
+		getLocation();
 		
 		createLocalMp3();
 		
@@ -65,7 +78,7 @@ public class ViewspotListActivity extends Activity {
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
@@ -123,6 +136,106 @@ public class ViewspotListActivity extends Activity {
 		
 	}
 	
+	/**
+	 * 获取定位
+	 */
+	private void getLocation() {
+		// 获取位置管理服务
+		LocationManager locationManager;
+		String serviceName = Context.LOCATION_SERVICE;
+		locationManager = (LocationManager) this.getSystemService(serviceName);
+		// 查找到服务信息
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_FINE); // 高精度
+		criteria.setAltitudeRequired(false);
+		criteria.setBearingRequired(false);
+		criteria.setCostAllowed(true);
+		criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗
+
+		String provider = locationManager.getBestProvider(criteria, true); // 获取GPS信息
+		Location location = locationManager.getLastKnownLocation(provider); // 通过GPS获取位置
+		updateToNewLocation(location);
+		// 设置监听器，自动更新的最小时间为间隔N秒(1秒为1*1000，这样写主要为了方便)或最小位移变化超过N米
+		locationManager.requestLocationUpdates(provider, 5 * 1000, 25,
+				new LocationListener() {
+
+					@Override
+					public void onLocationChanged(Location location) {
+						// TODO Auto-generated method stub
+						updateToNewLocation(location);
+						Log.i(ViewspotListActivity.ACTIVITY_TAG,
+								"时间：" + location.getTime());
+						Log.i(ViewspotListActivity.ACTIVITY_TAG,
+								"经度：" + location.getLongitude());
+						Log.i(ViewspotListActivity.ACTIVITY_TAG,
+								"纬度：" + location.getLatitude());
+						Log.i(ViewspotListActivity.ACTIVITY_TAG,
+								"海拔：" + location.getAltitude());
+					}
+
+					@Override
+					public void onProviderDisabled(String provider) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onProviderEnabled(String provider) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onStatusChanged(String provider, int status,
+							Bundle extras) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+	}
+
+	private void updateToNewLocation(Location location) {
+		
+	}
+	
+	public VLocation[] createViewLocas() {
+		locas = new VLocation[8];
+		
+		locas[0] = new VLocation();
+		locas[0].setLatitude(121.39208623);
+		locas[0].setLongitude(31.22641032);
+		
+		locas[1] = new VLocation();
+		locas[1].setLatitude(121.39217446);
+		locas[1].setLongitude(31.22628108);
+		
+		locas[2] = new VLocation();
+		locas[2].setLatitude(121.39244637);
+		locas[2].setLongitude(31.22569108);
+		
+		locas[3] = new VLocation();
+		locas[3].setLatitude(121.39377488);
+		locas[3].setLongitude(31.22516123);
+		
+		locas[4] = new VLocation();
+		locas[4].setLatitude(121.39563189);
+		locas[4].setLongitude(31.2251556);
+		
+		locas[5] = new VLocation();
+		locas[5].setLatitude(121.396269);
+		locas[5].setLongitude(31.226171);
+		
+		locas[6] = new VLocation();
+		locas[6].setLatitude(121.39590147);
+		locas[6].setLongitude(31.22807943);
+		
+		locas[7] = new VLocation();
+		locas[7].setLatitude(121.39486268);
+		locas[7].setLongitude(31.22862123);
+		
+		return locas;
+	}
+	
 	public MediaPlayer[] createLocalMp3(){  
         /** 
          * 创建音频文件的方法： 
@@ -130,7 +243,7 @@ public class ViewspotListActivity extends Activity {
          * 2:播放sdcard卡的文件：mediaPlayer=new MediaPlayer(); 
          *   mediaPlayer.setDataSource("/sdcard/beatit.mp3");//前提是sdcard卡要先导入音频文件 
          */  
-		mps = new MediaPlayer[20];
+		mps = new MediaPlayer[8];
 		mps[0]=MediaPlayer.create(this,R.raw.zoo1); 
         mps[0].stop();
         mps[1]=MediaPlayer.create(this,R.raw.zoo2); 
@@ -148,33 +261,7 @@ public class ViewspotListActivity extends Activity {
         mps[6].stop();
         mps[7]=MediaPlayer.create(this,R.raw.zoo8);  
         mps[7].stop();
-        mps[8]=MediaPlayer.create(this,R.raw.zoo9);  
-        mps[8].stop();
-        mps[9]=MediaPlayer.create(this,R.raw.zoo10);  
-        mps[9].stop();
-        mps[10]=MediaPlayer.create(this,R.raw.zoo11);
-        mps[10].stop();
-        
-        mps[11]=MediaPlayer.create(this,R.raw.zoo12); 
-        mps[11].stop();
-        mps[12]=MediaPlayer.create(this,R.raw.zoo13); 
-        mps[12].stop();
-        mps[13]=MediaPlayer.create(this,R.raw.zoo14);  
-        mps[13].stop();
-        mps[14]=MediaPlayer.create(this,R.raw.zoo15);  
-        mps[14].stop();
-        mps[15]=MediaPlayer.create(this,R.raw.zoo16);  
-        mps[15].stop();
-        
-        mps[16]=MediaPlayer.create(this,R.raw.zoo17);  
-        mps[16].stop();
-        mps[17]=MediaPlayer.create(this,R.raw.zoo18);  
-        mps[17].stop();
-        mps[18]=MediaPlayer.create(this,R.raw.zoo19);  
-        mps[18].stop();
-        mps[19]=MediaPlayer.create(this,R.raw.zoo20);  
-        mps[19].stop();
- 
+         
         return mps;  
     }  
 	

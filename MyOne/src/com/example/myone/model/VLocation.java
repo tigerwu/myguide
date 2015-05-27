@@ -2,7 +2,7 @@ package com.example.myone.model;
 
 import java.lang.Double;
 
-public class Location {	
+public class VLocation {	
 	private Double longitude;
 	private Double latitude;
 	

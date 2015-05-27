@@ -48,6 +48,8 @@ public class MainActivity extends Activity {
 	
 	private Handler mHandler = new Handler();
 	private ScrollView mScrollView;  
+	private LocationManager locationManager;
+	private myLocationListener mylocalistener = new myLocationListener();  
 	
 	
 
@@ -137,6 +139,52 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		Log.i(MainActivity.ACTIVITY_TAG, "onPause");
+		if (this.locationManager != null) {
+			this.locationManager.removeUpdates(mylocalistener);
+		}
+		super.onPause();
+	}
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		Log.i(MainActivity.ACTIVITY_TAG, "onRestart");
+		if (locationManager != null) {
+			getLocation();
+		}
+		super.onRestart();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		Log.i(MainActivity.ACTIVITY_TAG, "onResume");
+		
+		super.onResume();
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		Log.i(MainActivity.ACTIVITY_TAG, "onStart");
+		
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		Log.i(MainActivity.ACTIVITY_TAG, "onStop");
+		
+		super.onStop();
 	}
 
 	public void Locate_onClick_Event(View view) {
@@ -362,7 +410,7 @@ public class MainActivity extends Activity {
 	 */
 	private void getLocation() {
 		// 获取位置管理服务
-		LocationManager locationManager;
+		
 		String serviceName = Context.LOCATION_SERVICE;
 		locationManager = (LocationManager) this.getSystemService(serviceName);
 		// 查找到服务信息
@@ -377,42 +425,43 @@ public class MainActivity extends Activity {
 		Location location = locationManager.getLastKnownLocation(provider); // 通过GPS获取位置
 		updateToNewLocation(location);
 		// 设置监听器，自动更新的最小时间为间隔N秒(1秒为1*1000，这样写主要为了方便)或最小位移变化超过N米
-		locationManager.requestLocationUpdates(provider, 100 * 1000, 500,
-				new LocationListener() {
+		locationManager.requestLocationUpdates(provider, 5 * 1000, 25, mylocalistener);
+	}
+	
+	private class myLocationListener implements LocationListener {
+		@Override
+		public void onLocationChanged(Location location) {
+			// TODO Auto-generated method stub
+			updateToNewLocation(location);
+			Log.i(MainActivity.ACTIVITY_TAG,
+					"时间：" + location.getTime());
+			Log.i(MainActivity.ACTIVITY_TAG,
+					"经度：" + location.getLongitude());
+			Log.i(MainActivity.ACTIVITY_TAG,
+					"纬度：" + location.getLatitude());
+			Log.i(MainActivity.ACTIVITY_TAG,
+					"海拔：" + location.getAltitude());
+			
+		}
 
-					@Override
-					public void onLocationChanged(Location location) {
-						// TODO Auto-generated method stub
-						updateToNewLocation(location);
-						Log.i(MainActivity.ACTIVITY_TAG,
-								"时间：" + location.getTime());
-						Log.i(MainActivity.ACTIVITY_TAG,
-								"经度：" + location.getLongitude());
-						Log.i(MainActivity.ACTIVITY_TAG,
-								"纬度：" + location.getLatitude());
-						Log.i(MainActivity.ACTIVITY_TAG,
-								"海拔：" + location.getAltitude());
-					}
+		@Override
+		public void onProviderDisabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
 
-					@Override
-					public void onProviderDisabled(String provider) {
-						// TODO Auto-generated method stub
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
 
-					}
-
-					@Override
-					public void onProviderEnabled(String provider) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onStatusChanged(String provider, int status,
-							Bundle extras) {
-						// TODO Auto-generated method stub
-
-					}
-				});
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 	private void updateToNewLocation(Location location) {

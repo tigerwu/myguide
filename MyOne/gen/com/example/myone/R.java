@@ -53,25 +53,13 @@ public final class R {
     }
     public static final class raw {
         public static final int zoo1=0x7f040000;
-        public static final int zoo10=0x7f040001;
-        public static final int zoo11=0x7f040002;
-        public static final int zoo12=0x7f040003;
-        public static final int zoo13=0x7f040004;
-        public static final int zoo14=0x7f040005;
-        public static final int zoo15=0x7f040006;
-        public static final int zoo16=0x7f040007;
-        public static final int zoo17=0x7f040008;
-        public static final int zoo18=0x7f040009;
-        public static final int zoo19=0x7f04000a;
-        public static final int zoo2=0x7f04000b;
-        public static final int zoo20=0x7f04000c;
-        public static final int zoo3=0x7f04000d;
-        public static final int zoo4=0x7f04000e;
-        public static final int zoo5=0x7f04000f;
-        public static final int zoo6=0x7f040010;
-        public static final int zoo7=0x7f040011;
-        public static final int zoo8=0x7f040012;
-        public static final int zoo9=0x7f040013;
+        public static final int zoo2=0x7f040001;
+        public static final int zoo3=0x7f040002;
+        public static final int zoo4=0x7f040003;
+        public static final int zoo5=0x7f040004;
+        public static final int zoo6=0x7f040005;
+        public static final int zoo7=0x7f040006;
+        public static final int zoo8=0x7f040007;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;

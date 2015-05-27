@@ -19,27 +19,15 @@
     <string name="str_toast_saveview_fail">保存景点信息失败</string>
 
     <string-array name="strarr_spinner_viewspots">
-        <item>大猩猩馆</item>
-        <item>红猩猩馆</item>
-        <item>黑猩猩馆</item>
-        <item>黑叶猴</item>
-        <item>灵长动物二区</item>
-        <item>灵长动物三区</item>
-        <item>大象馆</item>
-        <item>红颈袋鼠</item>
-        <item>四川羚牛</item>
-        <item>旋角羚羊</item>
-        <item>斑马</item>
-        <item>弯角剑羚</item>
-        <item>东北梅花鹿</item>
-        <item>东北马鹿</item>
-        <item>马来熊</item>
-        <item>熊猫岭</item>
-        <item>斑海豹馆</item>
-        <item>河马馆</item>
-        <item>天鹅鸳鸯区</item>
-        <item>火烈鸟区</item>
-    </string-array>
+        <item>海洋世界</item>
+        <item>杜鹃苑</item>
+        <item>钓鱼桥下</item>
+        <item>凌波桥</item>
+        <item>少先队群雕</item>
+        <item>白鲸馆</item>
+        <item>铁臂山</item>
+        <item>飞虹桥</item>
+     </string-array>
 
     <string name="title_activity_viewspot_list">ViewspotListActivity</string>
     <string name="hello_world">Hello world!</string>
